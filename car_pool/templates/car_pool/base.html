@@ -1,0 +1,23 @@
+{% load staticfiles %}
+<html>
+    <head>
+        <title>Car Pool Management</title>
+    </head>
+      <body>
+    <div class="page-header">
+        <h1><a href="/">Car Pool Management</a></h1>
+        <a href="{% url 'car_new'    %}">New Car</a>
+        <a href="{% url 'car_list'   %}">list of cars</a>
+        <a href="{% url 'staff_list' %}">list of staff</a>
+    </div>
+    <div class="content container">
+        <div class="row">
+            <div class="col-md-8">
+            {% block content %}
+
+            {% endblock %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

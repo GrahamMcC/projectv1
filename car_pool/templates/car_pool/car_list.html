@@ -1,0 +1,22 @@
+
+{% extends 'car_pool/base.html' %}
+{% block content %}
+<table border="1" >
+  <tr>
+    <th>Registration Number</th>
+    <th>model</th>
+    <th>Colour </th>
+    <th>Driver </th>
+    <th>Edit </th>
+    </tr>
+    {% for car in car_list %}
+      <tr>
+        <td><a href="{% url 'car_detail' pk=car.pk %}">{{ car.regNum }}</a></td>
+        <td>{{ car.model }}</td>
+        <td>{{ car.colour}}</td>
+        <td>{{ car.driver}}</td>
+        <td><a href="{% url 'car_edit' pk=car.pk %}">Edit Car</a></td>
+      </tr>
+    {% endfor %}
+<table>
+{% endblock %}

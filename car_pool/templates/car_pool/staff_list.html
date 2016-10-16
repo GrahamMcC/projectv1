@@ -1,0 +1,26 @@
+
+{% extends 'car_pool/base.html' %}
+{% block content %}
+<table border="1" >
+  <tr>
+    <th>Name</th>
+    <th>school</th>
+    <th>Is Driver?</th>
+    <th>Is head of school?</th>
+    <th>is head of Faculty?</th>
+    <th>Is university management</th>
+    <th> edit </th>
+  </tr>
+      {% for staff_member in staff %}
+      <tr>
+        <td>{{ staff_member.user.username }}</td>
+        <td>{{ staff_member.school }}</td>
+         <td>{{ staff_member.driver }}</td>
+         <td>{{ staff_member.headOfSchool}}</td>
+         <td>{{ staff_member.head0fFaculty}}</td>
+         <td>{{ staff_member.uniManagement}}</td>
+         <td>edit button here!!</td>
+       </tr>
+      {% endfor %}
+<table>
+{% endblock %}
