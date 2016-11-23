@@ -1,0 +1,4 @@
+<a href="{% url 'car_list'   %}">list of cars</a>
+<a href="{% url 'staff_list' %}">list of staff</a>
+<a href="{% url 'school_list' %}">list of school</a>
+<a href="{% url 'faculty_list' %}">list of faculties</a>

@@ -3,20 +3,17 @@
     <head>
         <title>Car Pool Management</title>
     </head>
-      <body>
-    <div class="page-header">
+    <body>
+    <div class="topNav">
         <h1><a href="/">Car Pool Management</a></h1>
-        <a href="{% url 'car_list'   %}">list of cars</a>
-        <a href="{% url 'staff_list' %}">list of staff</a>
+        <a href="{% url 'journey_new' %}">new_journey</a>
+        <a href="{% url 'journey_list' %}">journey_list</a>
+        <a href="{% url 'reports' %}">reports</a>
+        <a href="{% url 'internal_admin' %}">admin</a>
     </div>
-    <div class="content container">
-        <div class="row">
-            <div class="col-md-8">
             {% block content %}
-
             {% endblock %}
-            </div>
-        </div>
+    <div class="bottomNav">
     </div>
-</body>
+   </body>
 </html>

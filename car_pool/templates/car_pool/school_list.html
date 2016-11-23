@@ -1,0 +1,19 @@
+
+{% extends 'car_pool/base.html' %}
+{% block content %}
+<table border="1" >
+  <tr>
+    <th>title</th>
+    <th>head of school school</th>
+    <th>faculty</th>
+    <th> edit </th>
+  </tr>
+      {% for school in school_list %}
+      <tr>
+        <td>{{ school.schoolName}}</td>
+        <td>{{ school.headOfSchool}}</td>
+        <td><a href="{% url 'school_edit' pk=school.pk %}">Edit Car</a></td></td>
+       </tr>
+      {% endfor %}
+<table>
+{% endblock %}
