@@ -19,7 +19,7 @@
          <td>{{ staff_member.headOfSchool}}</td>
          <td>{{ staff_member.head0fFaculty}}</td>
          <td>{{ staff_member.uniManagement}}</td>
-         <td>edit button here!!</td>
+         <td><a href="{% url 'staff_edit' pk=staff_member.pk %}">Edit Staff</a></td>
        </tr>
       {% endfor %}
 <table>

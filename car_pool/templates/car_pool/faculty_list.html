@@ -1,19 +1,25 @@
 
 {% extends 'car_pool/base.html' %}
 {% block content %}
-
+<h1>List of faculties</h1>
+<a href="{% url 'faculty_new' %}">Add a new faculty</a>
 <table border="1" >
   <tr>
     <th>Name</th>
-    <th>Dean </th>
+    <th>Dean</th>
+    <th>school(s) in faculty</th>
     <th>Edit </th>
     </tr>
     {% for faculty in faculty_list %}
         <tr>
           <td>{{faculty.facultyName}}</td>
           <td>{{faculty.headOfFaculty}}</td>
-            <td><a href="{% url 'faculty_edit'
-                pk=faculty.pk %}">Edit faculty</a></td>
+          <td>
+            {% for school in faculty.list_of_schools%}
+                {{school.schoolName}};
+            {% endfor %}
+          <td><a href="{% url 'faculty_edit' pk=faculty.pk %}">Edit faculty</a>
+          </td>
         </tr>
     {% endfor %}
 <table>

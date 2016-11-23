@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 class Staff(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    schoolOfWork = models.TextField()
+    schoolOfWork = models.ForeignKey('School')
     driver = models.BooleanField()
     headOfSchool = models.BooleanField()
     head0fFaculty = models.BooleanField()

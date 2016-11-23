@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Staff, Car, Faculty, School, Journey, StaffJourney
-from .forms import CarForm, facultyForm
+from .forms import CarForm, FacultyForm, SchoolForm, StaffForm
 
 #functions to login
 def log_in(request):
@@ -29,6 +29,9 @@ def car_list(request):
 
 def faculty_list(request):
     faculty_list =  Faculty.objects.all()
+    for faculty in faculty_list:
+        list_of_schools = School.objects.filter(faculty=faculty.pk)
+        faculty.list_of_schools = list_of_schools
     return render(request, 'car_pool/faculty_list.html',
                            {'faculty_list': faculty_list})
 
@@ -62,25 +65,25 @@ def car_new(request):
 
 def school_new(request):
     if request.method == "POST":
-        form = schoolForm(request.POST)
+        form = SchoolForm(request.POST)
         if form.is_valid():
             school = form.save(commit=False)
-            post.save()
+            school.save()
             return redirect('school_list')
     else:
-        form = schoolForm()
+        form = SchoolForm()
     return render(request, 'car_pool/school_edit.html', {'form': form})
 
 def faculty_new(request):
     if request.method == "POST":
-        form = Form(request.POST)
+        form = FacultyForm(request.POST)
         if form.is_valid():
             faculty = form.save(commit=False)
-            post.save()
+            faculty.save()
             return redirect('faculty_list')
-        else:
-            form = facultyForm()
-            return render(request, 'car_pool/faculty_edit.html', {'form': form})
+    else:
+        form = FacultyForm()
+    return render(request, 'car_pool/faculty_edit.html', {'form': form})
 
 #needds changed from faculty to journey
 def journey_new(request):
@@ -116,20 +119,33 @@ def school_edit(request, pk):
             school.save()
             return redirect(school_list)
     else:
-        form = schoolForm(instance=post)
+        form = SchoolForm(instance=post)
     return render(request, 'car_pool/school_edit.html', {'form': form})
 
 def faculty_edit(request, pk):
     post = get_object_or_404(Faculty, pk=pk)
     if request.method == "POST":
-        form = facultyForm(request.POST, instance=post)
+        form = FacultyForm(request.POST, instance=post)
         if form.is_valid():
             faculty = form.save(commit=False)
             faculty.save()
             return redirect(faculty_list)
     else:
-        form = facultyForm(instance=post)
+        form = FacultyForm(instance=post)
     return render(request, 'car_pool/faculty_edit.html', {'form': form})
+
+def staff_edit(request, pk):
+    post = get_object_or_404(Staff, pk=pk)
+    if request.method == "POST":
+        form = StaffForm(request.POST, instance=post)
+        if form.is_valid():
+            staff = form.save(commit=False)
+            staff.save()
+            return redirect(staff_list)
+    else:
+        form = StaffForm(instance=post)
+    return render(request, 'car_pool/Staff_edit.html', {'form': form})
+
 
 # needs changed from facuilty to journey
 def journey_edit(request, pk):

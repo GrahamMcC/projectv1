@@ -1,6 +1,8 @@
 
 {% extends 'car_pool/base.html' %}
 {% block content %}
+<h1>List of Schools</h1>
+<a href="{% url 'school_new' %}">Add a new School</a>
 <table border="1" >
   <tr>
     <th>title</th>
@@ -12,8 +14,9 @@
       <tr>
         <td>{{ school.schoolName}}</td>
         <td>{{ school.headOfSchool}}</td>
-        <td><a href="{% url 'school_edit' pk=school.pk %}">Edit Car</a></td></td>
-       </tr>
+        <td>{{ school.faculty}}</td>
+        <td><a href="{% url 'school_edit' pk=school.pk %}">Edit School</a></td>
+      </td></tr>
       {% endfor %}
 <table>
 {% endblock %}

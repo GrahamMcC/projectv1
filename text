@@ -2,3 +2,10 @@
 <a href="{% url 'staff_list' %}">list of staff</a>
 <a href="{% url 'school_list' %}">list of school</a>
 <a href="{% url 'faculty_list' %}">list of faculties</a>
+
+  <a href="{% url 'new_faculty' %}">add a new faculity</a>
+    <a href="{% url 'new_school' %}">add a new school</a>
+    <a href="{% url 'new_staff' %}">add new member of staff</a><br>
+
+School.objects.filter(faculty="1")
+school_list[1].schoolName

@@ -22,9 +22,11 @@ urlpatterns = [
     url(r'^car/new/$', views.car_new, name='car_new'),
     url(r'^school/new/$', views.school_new, name='school_new'),
     url(r'^journey/new/$', views.journey_new, name='journey_new'),
+    url(r'^faculty/new/$', views.faculty_new, name='faculty_new'),
 
     #urls for edit views
     url(r'^car/(?P<pk>\d+)/edit/$', views.car_edit, name='car_edit'),
     url(r'^school/(?P<pk>\d+)/edit/$', views.school_edit, name='school_edit'),
     url(r'^faculty/(?P<pk>\d+)/edit/$', views.faculty_edit, name='faculty_edit'),
+    url(r'^staff/(?P<pk>\d+)/edit/$', views.staff_edit, name='staff_edit'),
 ]
