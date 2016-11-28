@@ -4,6 +4,17 @@
   </head>
   <body>
     <h1>log in</h1>
+    {% if form.errors %}
+    <p>Your username and password didn't match. Please try again.</p>
+    {% endif %}
+
+    <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <input type="submit" value="login" />
+    <input type="hidden" name="next" value="{{ next }}" />
+    </form>
   </body>
     <a href="{% url 'forgot_password' %}">forgot password</a>
       <a href="{% url 'journey_list' %}">journey_list</a>

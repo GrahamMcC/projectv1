@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     #urls for log in and forgot password
-    url(r'^$', views.log_in, name='log_in'),
+    url(r'^$', views.login, name='login'),
     url(r'^fogotpassword$', views.forgot_password, name='forgot_password'),
     url(r'^internal_admin$', views.admin, name='internal_admin'),
     url(r'^reports$', views.reports, name='reports'),
@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^school/new/$', views.school_new, name='school_new'),
     url(r'^journey/new/$', views.journey_new, name='journey_new'),
     url(r'^faculty/new/$', views.faculty_new, name='faculty_new'),
+    url(r'^staff/new/$', views.staff_new, name='staff_new'),
 
     #urls for edit views
     url(r'^car/(?P<pk>\d+)/edit/$', views.car_edit, name='car_edit'),

@@ -1,6 +1,8 @@
 
 {% extends 'car_pool/base.html' %}
 {% block content %}
+
+<a href="{% url 'staff_new' %}">Add a new member of staff</a>
 <table border="1" >
   <tr>
     <th>Name</th>
@@ -14,7 +16,7 @@
       {% for staff_member in staff %}
       <tr>
         <td>{{ staff_member.user.username }}</td>
-        <td>{{ staff_member.school }}</td>
+         <td>{{staff_member.schoolOfWork }}</td>
          <td>{{ staff_member.driver }}</td>
          <td>{{ staff_member.headOfSchool}}</td>
          <td>{{ staff_member.head0fFaculty}}</td>

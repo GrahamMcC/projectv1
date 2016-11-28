@@ -4,9 +4,14 @@
     <h1> Admin </h1>
     <p> This is the admin section of the website, to be used of internal
         maitance of the website<p>
-    <a href="{% url 'staff_list' %}">list of staff</a>
-    <a href="{% url 'school_list' %}">list of school</a>
-    <a href="{% url 'faculty_list' %}">list of faculties</a><br>
+    <a href="{% url 'staff_list' %}">List of Staff</a><br>
+    
+    <br>
+    <a href="{% url 'school_list' %}">List of school</a><br>
+    <a href="{% url 'school_new' %}">Add a new school</a><br>
+    <br>
+    <a href="{% url 'faculty_list' %}">List of faculties</a><br>
+    <a href="{% url 'faculty_new' %}">Add a new faculty</a>
 
 
 {% endblock %}
