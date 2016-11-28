@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login
 #functions to login
 def login(request):
 	#https://simpleisbetterthancomplex.com/tutorial/2016/06/27/how-to-use-djangos-built-in-login-system.html
-	return render(request, 'car_pool/log_in.html', {'form': form})
+	return render(request, 'car_pool/log_in.html')
 
 #function for forgot password
 def forgot_password(request):
