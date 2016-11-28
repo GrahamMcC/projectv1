@@ -100,16 +100,22 @@ def journey_new(request):
 	return render(request, 'car_pool/journey_edit.html', {'form': form})
 
 
-# def user_new(request):
+def user_new(request):
 	if request.method == "POST":
 		form = UserForm(request.POST)
 		if form.is_valid():
 			user = form.save(commit=False)
 			user.save()
-			return redirect('staff_list')
+			school = School.objects.all()
+			newstaff = Staff.objects.create(user=user, schoolOfWork=school[0],
+			                     driver=False, headOfSchool=False,
+								 head0fFaculty=False,
+								 uniManagement=False)
+			return redirect('staff_edit', pk=newstaff.pk)
 	else:
 		form = UserForm()
 	return render(request, 'car_pool/user_edit.html', {'form': form})
+
 def staff_new(request):
 	if request.method == "POST":
 		form = StaffForm(request.POST)

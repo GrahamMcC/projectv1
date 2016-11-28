@@ -5,7 +5,7 @@ from .models import Staff, Car, School, Faculty, Journey, User, Staff
 class StaffForm(forms.ModelForm):
     class Meta:
         model = Staff
-        fields = ( 'user','schoolOfWork', 'driver', 'headOfSchool',
+        fields = ('user', 'schoolOfWork', 'driver', 'headOfSchool',
                   'head0fFaculty', 'uniManagement')
 
 class UserForm(forms.ModelForm):
