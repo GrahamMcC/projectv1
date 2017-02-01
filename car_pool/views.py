@@ -43,7 +43,9 @@ def school_list(request):
 						   {'school_list': school_list})
 
 def journey_list(request):
-	return render(request, 'car_pool/journey_list.html')
+	journey_list = Journey.objects.all()
+	return render(request, 'car_pool/journey_list.html',
+							{'journey_list': journey_list})
 
 # funtions to look at an instance in more detail
 def car_detail(request, pk):
@@ -51,7 +53,8 @@ def car_detail(request, pk):
 	return render(request, 'car_pool/car_detail.html', {'car': car})
 
 def journey_detail(request, pk):
-	return render(request, 'car_pool/journey_detail.html')
+	journey = get_object_or_404(Journey, pk=pk)
+	return render(request, 'car_pool/journey_detail.html', {'journey': journey})
 
 # funtions to add a new instace
 def car_new(request):

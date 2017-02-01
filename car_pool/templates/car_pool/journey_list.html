@@ -1,6 +1,22 @@
 {% extends 'car_pool/base.html' %}
 
 {% block content %}
-    <h1>list</h1>
-    under development
+    <h1>A list of available journeys:</h1>
+
+    <div class = "journey">
+    {% for journey in journey_list %}
+          <h1><a href="{% url 'journey_detail' pk=journey.pk %}">
+            From {{journey.origin}} to {{journey.destination}}</a> </h1>
+            <h2>{{ journey.car }}</h2>
+            <h2>{{ journey.seats }}
+            <h2>{{ journey.origin }}</h2>
+            <h2>{{ journey.destination }}</h2>
+            <h2>{{ journey.dateOfJourney }}</h2>
+            <h2>{{ journey.departureTime }}</h2>
+            <h2>{{ journey.arrivalTime }}</h2>
+            <h2><button type="button">Click Me!</button><h2>
+
+
+    {% endfor %}
+  </div>
 {% endblock %}

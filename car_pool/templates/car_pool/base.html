@@ -2,18 +2,27 @@
 <html>
     <head>
         <title>Car Pool Management</title>
+        <link rel="stylesheet" href="{% static 'css/car_pool.css' %}">
     </head>
-    <body>
+    <body class = "body"/>
+
     <div class="topNav">
-        <h1><a href="{% url 'journey_list' %}">Car Pool Management</a></h1>
-        <a href="{% url 'journey_new' %}">New Journey</a>
-        <a href="{% url 'journey_list' %}">Journey List</a>
-        <a href="{% url 'reports' %}">Reports</a>
-        <a href="{% url 'internal_admin' %}">Admin</a>
-    </div>
+      <div class= "topContent">
+        <h1><a href="{% url 'journey_list' %}">Car Pool Management System</a></h1>
+
+        <div class= "navBar">
+          <ul>
+            <li><a href="{% url 'journey_new' %}">New Journey</a></li>
+            <li><a href="{% url 'journey_list' %}">Journey List</a></li>
+            <li><a href="{% url 'reports' %}">Reports</a></li>
+            <li><a href="{% url 'internal_admin' %}">Admin</a></li>
+          </ul>
+        </div>
+     </div>
+   </div>
             {% block content %}
+
+
             {% endblock %}
-    <div class="bottomNav">
-    </div>
    </body>
 </html>

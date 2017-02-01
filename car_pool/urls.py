@@ -18,6 +18,7 @@ urlpatterns = [
 
     #urls for detail views
     url(r'^car/(?P<pk>\d+)/$', views.car_detail, name='car_detail'),
+    url(r'^journey/(?P<pk>\d+)/$', views.journey_detail, name='journey_detail'),
 
     #urls for new views
     url(r'^car/new/$', views.car_new, name='car_new'),

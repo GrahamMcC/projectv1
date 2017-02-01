@@ -43,6 +43,8 @@ class School(models.Model):
 
 
 class Journey(models.Model):
+    reason = models.TextField(default="please give a reason for the journey",
+                              max_length=30)
     car = models.ForeignKey('Car')
     origin = models.TextField() # add chioces parameter
     destination = models.TextField() # add choices paramter
@@ -50,8 +52,12 @@ class Journey(models.Model):
     departureTime = models.TimeField()
     arrivalTime = models.TimeField()
 
+    def book_seat():
+        self.seats = self.car.numberOfSeats - 1
+
     def __str__(self):
-        journey = self.destination + " to " + self.destination + " on " + self.dateOfJourney
+        journey = self.origin + " to " + self.destination + " on " + self.dateOfJourney
+        self.seats = self.car.numberOfSeats
         return journey
 
 class StaffJourney(models.Model):

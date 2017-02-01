@@ -1,0 +1,11 @@
+{% extends 'car_pool/base.html' %}
+
+{% block content %}
+<h1>From {{journey.origin}} to {{journey.destination}}</h1>
+  <h2>{{ journey.car }}</h2>
+  <h2>{{ journey.origin }}</h2>
+  <h2>{{ journey.destination }}</h2>
+  <h2>{{ journey.dateOfJourney }}</h2>
+  <h2>{{ journey.departureTime }}</h2>
+  <h2>{{ journey.arrivalTime }}</h2>
+{% endblock %}

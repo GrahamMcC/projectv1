@@ -31,9 +31,8 @@ class FacultyForm(forms.ModelForm):
 class JourneyForm(forms.ModelForm):
     class Meta:
         model = Journey
-        fields = ('car', 'origin', 'destination', 'dateOfJourney',
+        fields = ( 'reason','car', 'origin', 'destination', 'dateOfJourney',
                   'departureTime', 'arrivalTime')
-
 
 class loginForm(forms.ModelForm):
     class Meta:

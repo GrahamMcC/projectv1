@@ -1,0 +1,19 @@
+{% extends 'car_pool/base.html' %}
+
+{% block content %}
+<form method="POST" class="post-form">{% csrf_token %}
+
+    <h1>New Journey</h1>
+    {{ form.as_table }}
+    <button type="submit">Save</button>
+
+{% endblock %}
+
+
+<!--
+{% for feild in form %}
+  {{feild.label}}
+  {{feild.data}}
+  {%endfor%}
+  <input id="origin" type="text" name="origin" value="{{ form.origin }}">
+->
