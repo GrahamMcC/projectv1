@@ -13,10 +13,11 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ('username', 'password', 'first_name', 'last_name')
 
+
 class CarForm(forms.ModelForm):
     class Meta:
         model = Car
-        fields = ('model', 'colour', 'regNum', 'driver')
+        fields = ('regNum' ,'model', 'colour', 'driver', 'numberOfSeats')
 
 class SchoolForm(forms.ModelForm):
     class Meta:
@@ -33,6 +34,11 @@ class JourneyForm(forms.ModelForm):
         model = Journey
         fields = ( 'reason','car', 'origin', 'destination', 'dateOfJourney',
                   'departureTime', 'arrivalTime')
+        widgets = {
+            'dateOfJourney': forms.DateInput(attrs={'class':'dateTime-input'}),
+            'departureTime': forms.TimeInput(attrs={'class':'timepicker'}),
+            'arrivalTime': forms.TimeInput(attrs={'class':'timepicker'})
+        }
 
 class loginForm(forms.ModelForm):
     class Meta:

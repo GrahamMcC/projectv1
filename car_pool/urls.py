@@ -5,7 +5,8 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     #urls for log in and forgot password
     url(r'^$', auth_views.login, name='login'),
-    url(r'^fogotpassword$', views.forgot_password, name='forgot_password'),
+    url(r'^logout$', auth_views.logout, {'next_page': '/'}, name='logout'),
+    url(r'^my_info$', views.my_info, name='my_info'),
     url(r'^internal_admin$', views.admin, name='internal_admin'),
     url(r'^reports$', views.reports, name='reports'),
 
@@ -19,6 +20,8 @@ urlpatterns = [
     #urls for detail views
     url(r'^car/(?P<pk>\d+)/$', views.car_detail, name='car_detail'),
     url(r'^journey/(?P<pk>\d+)/$', views.journey_detail, name='journey_detail'),
+    url(r'^journey/(?P<pk>\d+)/booked/$', views.journey_booked, name='journey_booked'),
+
 
     #urls for new views
     url(r'^car/new/$', views.car_new, name='car_new'),
@@ -33,4 +36,5 @@ urlpatterns = [
     url(r'^school/(?P<pk>\d+)/edit/$', views.school_edit, name='school_edit'),
     url(r'^faculty/(?P<pk>\d+)/edit/$', views.faculty_edit, name='faculty_edit'),
     url(r'^staff/(?P<pk>\d+)/edit/$', views.staff_edit, name='staff_edit'),
+    url(r'^journey/(?P<pk>\d+)/edit/$', views.journey_edit, name='journey_edit'),
 ]

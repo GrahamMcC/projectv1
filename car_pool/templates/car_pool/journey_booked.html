@@ -2,10 +2,10 @@
 
 {% block content %}
 <div class = "journey">
+  <h1>You are booked on the following journey:</h1>
   <h1><a href="{% url 'journey_detail' pk=journey.pk %}">
     From {{journey.origin}} to {{journey.destination}}</a></h1>
     <h2>Reason:</h2> <h3>{{journey.reason}}</h3><br>
-    <h2>Driver:</h2> <h3>{{journey.car.driver}} (school of {{journey.car.driver.schoolOfWork}})</h3><br>
     <h2>Car:</h2> <h3>{{ journey.car }}</h3><br>
     <h2>Number of seats:</h2> <h3>{{journey.available_seats}}</h3><br>
     <h2>Staring:</h2> <h3>{{ journey.origin }}</h3><br>
@@ -13,13 +13,6 @@
     <h2>Date:</h2> <h3>{{ journey.dateOfJourney }}</h3><br>
     <h2>Departing at:</h2> <h3>{{ journey.departureTime }}</h3><br>
     <h2>Estimated arrival time:</h2> <h3>{{ journey.arrivalTime }}</h3><br>
-
-    {% if request.user.staff in staffids%}
-      <h3>You have already booked a seat for this journey</h3>
-    {% elif request.user.staff == journey.car.driver %}
-      <a href="{% url 'journey_edit' pk=journey.pk %}" class= "btn btn-info" role="button" >edit journey</a>
-    {% else %}
-      <a href="{% url 'journey_booked' pk=journey.pk %}" class= "btn btn-info" role="button" >book seat</a>
-    {% endif %}
   </div>
+
 {% endblock %}

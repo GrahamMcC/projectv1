@@ -1,0 +1,42 @@
+{% extends 'car_pool/base.html' %}
+
+{% block content %}
+  <div class=journey>
+    <h1>My info:</h1>
+    <h2>Name:</h2> <h3>{{request.user}}</h3><br>
+    <h2>School:</h2> <h3>{{ request.user.staff.schoolOfWork }}</h3><br>
+    <h2>Faculty:</h2> <h3>{{ request.user.staff.schoolOfWork.faculty }}</h3><br>
+
+
+    {% if request.user.staff.driver == True %}
+      {% for car in car_list %}
+       {% if car.driver == request.user.staff %}
+       <h1>My car:</h1>
+       <h2>Model:</h2> <h3>{{car.model}}</h3><br>
+       <h2>Colour:</h2> <h3>{{ car.colour }}</h3><br>
+       <h2>reg number:</h2> <h3>{{car.regNum}}</h3><br>
+        <a href="{% url 'car_edit' pk=car.pk %}"> Edit Car Details</a>
+       {% endif %}
+      {% endfor %}
+    {% endif %}
+
+
+    <h1>My journeys</h1>
+    {% if request.user.staff.driver == True %}
+    <h2>List of journeys where {{request.user}} is the driver:</h2></br>
+      {% for journey in user_is_driver %}
+        <a href="{% url 'journey_detail' pk=journey.pk %}">
+        From {{journey.origin}} to {{journey.destination}} on {{journey.dateOfJourney}}</a></br>
+      {% endfor %}
+    {% endif %}
+
+    <h2>List of journeys where {{request.user}} is a passanger: </h2></br>
+    {% for journey in user_is_passanger %}
+      <a href="{% url 'journey_detail' pk=journey.pk %}">
+        From {{journey.journeyId.origin}} to {{journey.journeyId.destination}} on {{journey.journeyId.dateOfJourney}}</a></br>
+    {% endfor %}
+</div>
+
+
+
+{% endblock %}

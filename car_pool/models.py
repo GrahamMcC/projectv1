@@ -1,24 +1,26 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.shortcuts import render
 
 class Staff(models.Model):
-    user = models.ForeignKey(User)
+    user = models.OneToOneField(User)
     schoolOfWork = models.ForeignKey('School')
     driver = models.BooleanField()
     headOfSchool = models.BooleanField()
     head0fFaculty = models.BooleanField()
     uniManagement = models.BooleanField()
+    homeCampus = models.ForeignKey('Origin0ptions')
+
 
     def __str__(self):
         return self.user.username
 
-
 class Car(models.Model):
-    regNum = models.TextField()
-    model = models.TextField()
-    colour = models.TextField()
+    regNum = models.CharField(max_length=20)
+    model = models.CharField(max_length=20)
+    colour = models.CharField(max_length=20)
     driver = models.ForeignKey('Staff')
-    numberOfSeats = models.IntegerField(default='0')
+    numberOfSeats = models.IntegerField(default='5')
 
     def __str__(self):
         description = self.model + " " + self.colour
@@ -26,7 +28,7 @@ class Car(models.Model):
 
 
 class Faculty(models.Model):
-    facultyName = models.TextField(max_length=40)
+    facultyName = models.CharField(max_length=40)
     headOfFaculty = models.ForeignKey('Staff')
 
     def __str__(self):
@@ -34,32 +36,52 @@ class Faculty(models.Model):
 
 
 class School(models.Model):
-    schoolName = models.TextField()
+    schoolName = models.CharField(max_length=30)
     faculty = models.ForeignKey('Faculty')
     headOfSchool = models.ForeignKey('Staff')
 
     def __str__(self):
         return self.schoolName
 
+class Destination0ptions(models.Model):
+    name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.name
+
+class Origin0ptions(models.Model):
+    name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.name
+
 
 class Journey(models.Model):
-    reason = models.TextField(default="please give a reason for the journey",
-                              max_length=30)
+    reason = models.CharField(default="Why are you traveling",
+                              max_length=20)
     car = models.ForeignKey('Car')
-    origin = models.TextField() # add chioces parameter
-    destination = models.TextField() # add choices paramter
+    origin = models.ForeignKey('Origin0ptions')
+    destination = models.ForeignKey('Destination0ptions') # add choices paramter
     dateOfJourney = models.DateField()
     departureTime = models.TimeField()
     arrivalTime = models.TimeField()
+    available_seats = models.SmallIntegerField(default=4)
 
-    def book_seat():
-        self.seats = self.car.numberOfSeats - 1
+    def book_seat(self, staffId):
+        self.available_seats = self.available_seats - 1
+        StaffJourney.objects.create(staffId= staffId, journeyId=self)
+        self.save()
+
 
     def __str__(self):
+        self.available_seats = self.car.numberOfSeats -1
         journey = self.origin + " to " + self.destination + " on " + self.dateOfJourney
-        self.seats = self.car.numberOfSeats
         return journey
 
 class StaffJourney(models.Model):
     staffId = models.ForeignKey('Staff')
-    JourneyId = models.ForeignKey('Journey')
+    journeyId = models.ForeignKey('Journey')
+
+    def __str__(self):
+        StaffJourney = 'StaffJourney ' + str(self.pk)
+        return StaffJourney

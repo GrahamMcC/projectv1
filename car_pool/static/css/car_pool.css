@@ -1,6 +1,9 @@
+  <link rel="stylesheet" href="{% static 'css/car_pool.css' %}">
+
 * {
   font-family: 'Helvetica';
 }
+
 
 .topNav {
   height: 15%;
@@ -57,13 +60,27 @@ li a:hover {
     background-color: #FFF;
 }
 
-form {
+.content {
   margin-top: 15%; /* Add a top margin to avoid content overlay */
-  margin-left: 30%;
+  margin-left: 20%;
+  border:10px solid black;
 
 }
 
-.journey {
-  margin-top: 15%; /* Add a top margin to avoid content overlay */
-  margin-left: 30%;
+.content h1 {
+  color: #3E3F44;
+  text-decoration: underline;
+}
+
+.content table {
+    border-collapse: collapse;
+}
+
+.content table, th, td {
+    border: 1px solid black;
+}
+
+.content th {
+    background-color: #D3D3D3;
+    color: #3E3F44;
 }

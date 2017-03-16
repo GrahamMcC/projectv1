@@ -9,3 +9,23 @@
 
 School.objects.filter(faculty="1")
 school_list[1].schoolName
+
+
+
+
+"""
+    for number in range(1):
+        staff_name = names[number]
+        car_info = cars[number]
+        #create a number of users, subset being drivers
+        going_to_drive = random.choice(TorF) # 50/50 is this ok??
+        print(going_to_drive)
+
+        my_staff = create_staff(going_to_drive, staff_name)
+        report()
+
+        if going_to_drive == True:
+            my_car = create_car(my_staff, car_info)
+
+        report()
+"""
