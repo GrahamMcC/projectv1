@@ -1,33 +1,11 @@
 {% extends 'car_pool/base.html' %}
 
 {% block content %}
-<div class="new_journey">
+
 <form method="POST" class="post-form">{% csrf_token %}
     <h1 id="pageHeader"> {{title}} Journey</h1>
     {{ form.as_p}}
     <button type="submit">Create Journey</button>
 </form>
-</div>
+
 {% endblock %}
-
-
-<!--
-<form method="POST" class="post-form">{% csrf_token %}
-  <label for="">Reason: </label>
-  <input type="text" name="your_name" value={{form.reason}}><br>
-  <label for="">Car: </label>
-  {{form.car}}
-  <label for="">origin: </label>
-  {{form.origin}}<br>
-  <label for="">destination: </label>
-  {{form.destination}}<br>
-  <label for="">dateOfJourney: </label>
-  <input type="text" name="your_name" value={{form.dateOfJourney}}><br>
-  <label for="">departureTime: </label>
-  <input type="text" name="your_name" value={{form.departureTime}}><br>
-  <label for="">arrivalTime: </label>
-  <input type="text" name="your_name" value="{{form.arrivalTime}}"><br>
-
-
-  <input type="submit" value="OK">
--->

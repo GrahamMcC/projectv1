@@ -1,27 +1,35 @@
 {% extends 'car_pool/base.html' %}
 
 {% block content %}
+
+  <div class = "links">
     <h1>A list of available journeys:</h1>
+    <a href="{% url 'journey_selection' pk=1 %}">From Belfast</a>
+    <a href="{% url 'journey_selection' pk=2 %}">From Jordanstown</a>
+    <a href="{% url 'journey_selection' pk=3 %}">From Magee</a>
+    <a href="{% url 'journey_selection' pk=4 %}">From Coleraine</a>
+  </div>
 
     {% for journey in journey_list %}
-        <div class = "journey">
+    <div class = "journey">
           <h1><a href="{% url 'journey_detail' pk=journey.pk %}">
             From {{journey.origin}} to {{journey.destination}}</a></h1>
             <h2>Reason:</h2> <h3>{{journey.reason}}</h3><br>
             <h2>Date:</h2> <h3>{{ journey.dateOfJourney }}</h3><br>
             <h2>Departing at:</h2> <h3>{{ journey.departureTime }}</h3><br>
             <h2>Estimated arrival time:</h2> <h3>{{ journey.arrivalTime }}</h3><br>
+            <h2>Seats left:</h2> <h3>{{journey.available_seats}}</h3><br>
 
-            {% if request.user.staff in staffids%}
+            {% if request.user.staff in journey.passanger_list%}
               <h3>You have already booked a seat for this journey</h3>
-            {% elif request.user.staff == journey.car.driver %}
+            {% elif request.user.staff == journey.car.drive %}
               <a href="{% url 'journey_edit' pk=journey.pk %}" class= "btn btn-info" role="button" >edit journey</a>
             {% else %}
               <a href="{% url 'journey_booked' pk=journey.pk %}" class= "btn btn-info" role="button" >book seat</a>
             {% endif %}
             <a href="{% url 'journey_detail' pk=journey.pk %}">More Info</a>
+        </div> <!-- end of journey div -->
 
-          </div>
     {% endfor %}
 
 {% endblock %}

@@ -1,7 +1,6 @@
 {% extends 'car_pool/base.html' %}
 
 {% block content %}
-<div class = "journey">
   <h1><a href="{% url 'journey_detail' pk=journey.pk %}">
     From {{journey.origin}} to {{journey.destination}}</a></h1>
     <h2>Reason:</h2> <h3>{{journey.reason}}</h3><br>
@@ -13,6 +12,11 @@
     <h2>Date:</h2> <h3>{{ journey.dateOfJourney }}</h3><br>
     <h2>Departing at:</h2> <h3>{{ journey.departureTime }}</h3><br>
     <h2>Estimated arrival time:</h2> <h3>{{ journey.arrivalTime }}</h3><br>
+    <h2>distance:</h2> <h3>{{ journey.distance }}m</h3><br>
+    <h2>cost per passenger:</h2> <h3>£{{ journey.cost_per_person|floatformat:2 }}</h3><br>
+    <h2>total cost:</h2><h3>£{{ journey.total_cost|floatformat:2 }}</h3><br>
+
+    <h1>{{passenger_list}}</h1>
 
     {% if request.user.staff in staffids%}
       <h3>You have already booked a seat for this journey</h3>
@@ -21,5 +25,4 @@
     {% else %}
       <a href="{% url 'journey_booked' pk=journey.pk %}" class= "btn btn-info" role="button" >book seat</a>
     {% endif %}
-  </div>
 {% endblock %}

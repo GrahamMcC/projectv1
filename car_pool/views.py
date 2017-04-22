@@ -10,17 +10,166 @@ def get_journey_from_id(id):
 	current_journey = Journey.objects.get(pk=id)
 	return current_journey
 
+def get_passenger_list(journey):
+	staffJourneys_list = StaffJourney.objects.filter(journeyId=journey)
+	passenger_list = []
+	for staffjourney in staffJourneys_list:
+		passenger_list.append(staffjourney.staffId)
+	return passenger_list
+
 def user_equals_driver(staff_object):
-	drivers_car = Car.objects.filter(driver=staff_object)
-	journey_list = Journey.objects.filter(car=drivers_car)
+	if staff_object.driver == True:
+		drivers_car = Car.objects.filter(driver=staff_object)
+		journey_list = Journey.objects.filter(car=drivers_car)
+	else:
+		 journey_list= []
 	return journey_list
 
-def user_equals_passanger(staff_object):
+def user_equals_passenger(staff_object):
 	staffJourneys_list = StaffJourney.objects.filter(staffId=staff_object)
 	jobject_list = []
 	for staffJourney in staffJourneys_list:
 		myjourney = get_journey_from_id(staffJourney.journeyId_id)
+		jobject_list.append(myjourney)
 	return jobject_list
+
+
+def get_staff_in_school(school):
+	list_of_staff  = Staff.objects.filter(schoolOfWork=school)
+	return list_of_staff
+
+def get_schools_in_faculty(faculty_object):
+	list_of_schools = School.objects.filter(faculty=faculty_object)
+	return list_of_schools
+
+
+def report_single_staff(staff):
+	journeys_driven = user_equals_driver(staff)
+	journeys_passanger = user_equals_passenger(staff)
+
+	staff.total_traveled = len(journeys_passanger) + len(journeys_driven)
+	staff.driven_for = len(journeys_driven)
+	staff.passenger_for = len(journeys_passanger)
+
+	staff.distance_driven = 0
+	staff.reduced_cost = 0
+	staff.total_cost = 0
+	staff.distance_passenger = 0
+
+	for journey in journeys_driven:
+		staff.distance_driven = journey.distance + staff.distance_driven
+		staff.reduced_cost = staff.reduced_cost + journey.cost_per_person
+		staff.total_cost = staff.total_cost + journey.total_cost
+
+	for journey in journeys_passanger:
+		staff.distance_passenger = journey.distance + staff.distance_driven
+		staff.reduced_cost = staff.reduced_cost + journey.cost_per_person
+		staff.total_cost = staff.total_cost + journey.total_cost
+
+	staff.total_distance =	staff.distance_driven + staff.distance_passenger
+	staff.saving = staff.total_cost - staff.reduced_cost
+
+	return staff
+
+def update_list_of_staff(list_of_staff):
+	updated_staff_list = []
+
+	for staff in list_of_staff:
+		updated_staff = report_single_staff(staff)
+		updated_staff_list.append(updated_staff)
+
+	return updated_staff_list
+
+def update_list_of_schools(list_of_schools):
+	updated_school_list = []
+
+	for school in list_of_schools:
+		list_of_staff = get_staff_in_school(school)
+
+		updated_staff_list = update_list_of_staff(list_of_staff)
+		updated_school = update_object(school,  updated_staff_list)
+		updated_school_list.append(updated_school)
+
+	return updated_school_list
+
+
+def update_list_of_faculty(list_of_faculity):
+	updated_faculty_list = []
+
+	for faculty in list_of_faculity:
+		list_of_schools = get_schools_in_faculty(faculty)
+		updated_school_list = update_list_of_schools(list_of_schools)
+		updated_faculty =  update_object(faculty, updated_school_list)
+		updated_faculty_list.append(updated_faculty)
+
+	return updated_faculty_list
+
+
+def update_object(item, component_list):
+	item.total_traveled = 0
+	item.driven_for = 0
+	item.passenger_for = 0
+
+	item.distance_driven = 0
+	item.distance_passenger = 0
+	item.reduced_cost = 0
+	item.total_cost = 0
+
+	item.total_distance = 0
+	item.saving = 0
+
+	for component in component_list:
+		item.total_traveled = item.total_traveled + component.total_traveled
+		item.driven_for = item.driven_for + component.driven_for
+		item.passenger_for = item.passenger_for + component.passenger_for
+
+		item.distance_driven = item.distance_driven + component.distance_driven
+		item.distance_passenger = item.distance_passenger + component.distance_passenger
+		item.reduced_cost = item.reduced_cost + component.reduced_cost
+		item.total_cost = item.total_cost + component.total_cost
+
+	item.total_distance = item.distance_driven + item.distance_passenger
+	item.saving = item.total_cost - item.reduced_cost
+
+	return item
+"""
+def update_faculty(faculty, school_list):
+"""
+
+@login_required(login_url='/login/')
+def reports(request, pk):
+	if pk == '1':
+		staff = request.user.staff
+		staff = report_single_staff(staff)
+		user_is_driver = user_equals_driver(staff)
+		user_is_passenger = user_equals_passenger(staff)
+		return render(request, 'car_pool/my_reports.html', {'staff': staff,
+															'user_is_driver': user_is_driver,
+															'user_is_passenger': user_is_passenger})
+	elif pk == '2':
+		school = request.user.staff.schoolOfWork
+		list_of_staff = get_staff_in_school(school)
+		updated_staff_list = update_list_of_staff(list_of_staff)
+		updated_school = update_object(school,  updated_staff_list)
+
+		return render(request, 'car_pool/school_reports.html', {'school': updated_school,
+															  	'staff_list': updated_staff_list})
+	elif pk == '3':
+		faculty = request.user.staff.schoolOfWork.faculty
+		list_of_schools = get_schools_in_faculty(faculty)
+		updated_school_list = update_list_of_schools(list_of_schools)
+		updated_faculty =  update_object(faculty, updated_school_list)
+
+		return render(request, 'car_pool/faculty_reports.html', {'faculty': updated_faculty,
+															  	 'school_list': updated_school_list})
+	elif pk == '4':
+		university = type('uni', (), {})()
+		list_of_faculity = Faculty.objects.all()
+		updated_faculty_list = update_list_of_faculty(list_of_faculity)
+		update_university = update_object(university, updated_faculty_list)
+
+		return render(request, 'car_pool/uni_reports.html', {'uni': university,
+															  'faculty_list': updated_faculty_list})
 
 #functions to login
 def login(request):
@@ -31,13 +180,10 @@ def login(request):
 def forgot_password(request):
 	return render(request, 'car_pool/log_in.html')
 
+
 @login_required(login_url='/login/')
 def admin(request):
 	return render(request, 'car_pool/admin.html')
-
-@login_required(login_url='/login/')
-def reports(request):
-	return render(request, 'car_pool/reports.html')
 
 @login_required(login_url='/login/')
 def my_info(request):
@@ -45,12 +191,11 @@ def my_info(request):
 	users_car = Car.objects.filter(driver=request.user.staff)
 	#get list of journeys where user is driver
 	user_is_driver = user_equals_driver(request.user.staff)
-	#get list of journeys where user is passanger
-	user_is_passanger = user_equals_passanger(request.user.staff)
+	#get list of journeys where user is passenger
+	user_is_passenger = user_equals_passenger(request.user.staff)
 	return render(request, 'car_pool/my_info.html', {'car_list': users_car,
 													'user_is_driver': user_is_driver,
-													'user_is_passanger':user_is_passanger})
-
+													'user_is_passenger':user_is_passenger})
 
 #fuctions to return a list of instances
 @login_required(login_url='/login/')
@@ -82,19 +227,33 @@ def school_list(request):
 
 @login_required(login_url='/login/')
 def journey_list(request):
-	journey_list = Journey.objects.all()
+
+	journey_list = Journey.objects.order_by('dateOfJourney').filter(origin=request.user.staff.homeCampus)
 	my_journey_list = []
 	for journey in journey_list:
 		if journey.available_seats > 0:
+			journey.passenger_list = get_passenger_list(journey)
 			my_journey_list.append(journey)
-	staffjourney = StaffJourney.objects.all()
-	staffids = []
-	for staffj in staffjourney:
-		staffids.append(staffj.staffId)
+
 	return render(request, 'car_pool/journey_list.html',
-							{'journey_list': my_journey_list,
-							 'staffids': staffids
-							})
+							{'journey_list': my_journey_list })
+
+@login_required(login_url='/login/')
+def journey_selection(request, pk):
+		if pk == 0:
+			location = user.staff.homeCampus
+		else:
+			location = OriginOptions.objects.filter(id=pk)
+
+		journey_list = Journey.objects.order_by('dateOfJourney').filter(origin=location)
+		my_journey_list = []
+		for journey in journey_list:
+			if journey.available_seats > 0:
+				journey.passenger_list = get_passenger_list(journey)
+				my_journey_list.append(journey)
+
+		return render(request, 'car_pool/journey_list.html',
+								{'journey_list': my_journey_list })
 
 # funtions to look at an instance in more detail
 @login_required(login_url='/login/')
@@ -109,8 +268,10 @@ def journey_detail(request, pk):
 	staffids = []
 	for staffj in staffjourney:
 		staffids.append(staffj.staffId)
+	passanger_list = get_passenger_list(journey)
 	return render(request, 'car_pool/journey_detail.html', {'journey': journey,
-												'staffids': staffids})
+															'staffids': staffids,
+															'passenger_list': passanger_list})
 
 
 # funtions to add a new instace
@@ -153,6 +314,7 @@ def faculty_new(request):
 @login_required(login_url='/login/')
 def journey_booked(request, pk):
 	journey = get_object_or_404(Journey, pk=pk)
+	journey.book_seat(request.user.staff)
 	return render(request, 'car_pool/journey_booked.html', {'journey': journey})
 
 
@@ -163,6 +325,7 @@ def journey_new(request):
 		form = JourneyForm(request.POST)
 		if form.is_valid():
 			journey = form.save(commit=False)
+			journey.on_create()
 			journey.save()
 			return redirect('journey_list')
 	else:
@@ -170,10 +333,12 @@ def journey_new(request):
 		staff = Staff.objects.get(user=user_name)
 		staffpk = staff.id
 		car = Car.objects.get(driver=staffpk)
-		data = {'car': car}
+		user_home = request.user.staff.homeCampus
+		origin = user_home
+		data = {'car': car, 'origin': origin}
 		form = JourneyForm(initial=data)
 	return render(request, 'car_pool/journey_edit.html', {'form': form,
-														'title': "New"})
+														  'title': "New"})
 
 
 @login_required(login_url='/login/')
@@ -257,6 +422,7 @@ def staff_edit(request, pk):
 			return redirect(staff_list)
 	else:
 		form = StaffForm(instance=staff)
+
 	return render(request, 'car_pool/staff_edit.html', {'form': form})
 
 

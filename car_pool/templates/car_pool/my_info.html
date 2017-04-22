@@ -1,7 +1,6 @@
 {% extends 'car_pool/base.html' %}
 
 {% block content %}
-  <div class=journey>
     <h1>My info:</h1>
     <h2>Name:</h2> <h3>{{request.user}}</h3><br>
     <h2>School:</h2> <h3>{{ request.user.staff.schoolOfWork }}</h3><br>
@@ -31,11 +30,11 @@
     {% endif %}
 
     <h2>List of journeys where {{request.user}} is a passanger: </h2></br>
-    {% for journey in user_is_passanger %}
+    {% for journey in user_is_passenger %}
       <a href="{% url 'journey_detail' pk=journey.pk %}">
-        From {{journey.journeyId.origin}} to {{journey.journeyId.destination}} on {{journey.journeyId.dateOfJourney}}</a></br>
+        From {{journey.origin}} to {{journey.destination}} on {{journey.dateOfJourney}}</a></br>
     {% endfor %}
-</div>
+
 
 
 

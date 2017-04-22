@@ -1,31 +1,202 @@
-<a href="{% url 'car_list'   %}">list of cars</a>
-<a href="{% url 'staff_list' %}">list of staff</a>
-<a href="{% url 'school_list' %}">list of school</a>
-<a href="{% url 'faculty_list' %}">list of faculties</a>
+* {
+  font-family: 'Helvetica';
+}
 
-  <a href="{% url 'new_faculty' %}">add a new faculity</a>
-    <a href="{% url 'new_school' %}">add a new school</a>
-    <a href="{% url 'new_staff' %}">add new member of staff</a><br>
+.login {
+  height:30%;
+  background-color: #D3D3D3;
+}
 
-School.objects.filter(faculty="1")
-school_list[1].schoolName
+.userinfo {
+  position: absolute;
+  top: 10%;
+  right: 5%;
+  font-size: 0.5em;
+  line-height: 15%;
+
+}
+
+.topNav {
+  height: 15%;
+  margin-left: 0;
+  overflow: hidden;
+  background-color: #D3D3D3;
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  width: 100%; /* Full width */
+  display: block;
+  padding: 16px;
+}
+
+.topContent {
+    text-align: center;
+}
+
+.topContent h1 a {
+    color: #3E3F44;
+    font-family: 'Helvetica';
+    font-size: 1.5em;
+}
+
+.topContent a {
+    display: inline;
+    color: #3E3F44;
+    font-family: 'Helvetica';
+    font-size: 1.25em;
+    display: block;
+    text-decoration: none;
+}
+
+ul {
+  list-style-type: none;
+  margin-left: 30%;
+  padding: 0;
+  overflow: hidden;
+  background-color: #D3D3D3;
+}
+
+li {
+   float: left;
+}
+
+.navbar a {
+  display: block;
+  color: #3E3F44;
+  text-align: center;
+  padding: 0px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+    background-color: #FFF;
+}
+
+.content {
+  margin-top: 15%; /* Add a top margin to avoid content overlay */
+  margin-left: 20%;
+}
+
+.content h1 {
+  color: #3E3F44;
+  font-weight: bold;
+}
+
+.content table {
+    border-collapse: collapse;
+}
+
+.content table, th, td {
+    border: 1px solid black;
+}
+
+.content th {
+    background-color: #D3D3D3;
+    color: #3E3F44;
+}
+
+.content .journey {
+
+}
+
+.content .journey h1, a {
+  color: #3E3F44;
+}
+
+.content .journey h3 {
+  color: #3E3F44;
+}
+
+.content .journey h2, h3 {
+  display: inline-block;
+  line-height: 0%;
+}
+
+// from base.html
 
 
+<link rel="stylesheet" href="{% static 'css/car_pool.css' %}">
+
+* {
+font-family: 'Helvetica';
+}
 
 
-"""
-    for number in range(1):
-        staff_name = names[number]
-        car_info = cars[number]
-        #create a number of users, subset being drivers
-        going_to_drive = random.choice(TorF) # 50/50 is this ok??
-        print(going_to_drive)
+.topNav {
+height: 15%;
+margin-left: 0;
+overflow: hidden;
+background-color: #D3D3D3;
+position: fixed; /* Set the navbar to fixed position */
+top: 0; /* Position the navbar at the top of the page */
+width: 100%; /* Full width */
+display: block;
+padding: 16px;
+}
 
-        my_staff = create_staff(going_to_drive, staff_name)
-        report()
+.topContent {
+  text-align: center;
+}
 
-        if going_to_drive == True:
-            my_car = create_car(my_staff, car_info)
+.topContent h1 a {
+  color: #3E3F44;
+  font-family: 'Helvetica';
+  font-size: 1.5em;
+}
 
-        report()
-"""
+.topContent a {
+  display: inline;
+  color: #3E3F44;
+  font-family: 'Helvetica';
+  font-size: 1.25em;
+  display: block;
+  text-decoration: none;
+}
+
+ul {
+list-style-type: none;
+margin-left: 30%;
+padding: 0;
+overflow: hidden;
+background-color: #D3D3D3;
+}
+
+li {
+ float: left;
+}
+
+.navbar a {
+display: block;
+color: #3E3F44;
+text-align: center;
+padding: 0px 16px;
+text-decoration: none;
+}
+
+li a:hover {
+  background-color: #FFF;
+}
+
+.content {
+margin-top: 15%; /* Add a top margin to avoid content overlay */
+margin-left: 20%;
+border:10px solid black;
+
+}
+
+.content h1 {
+color: #3E3F44;
+text-decoration: underline;
+}
+
+.content table {
+  border-collapse: collapse;
+}
+
+.content table, th, td {
+  border: 1px solid black;
+}
+
+.content th {
+  background-color: #D3D3D3;
+  color: #3E3F44;
+}

@@ -29,8 +29,8 @@ def carreader(fileName):
 
 def report():
     global list_of_locations
-    list_of_locations = Origin0ptions.objects.all()
-    list_of_dest = Destination0ptions.objects.all()
+    list_of_locations = OriginOptions.objects.all()
+    list_of_dest = DestinationOptions.objects.all()
     global list_of_schools
     list_of_schools = School.objects.all()
     global list_of_users
@@ -109,9 +109,19 @@ def create_car(my_staff, car_info):
 
 def create_journey(my_staff):
     origin = my_staff.homeCampus
-    destination = random.choice(list_of_dest)
-    while origin == destination:
-        destination = random.choice(list_of_locations)
+    origin_name = origin.name
+    print(origin_name)
+    home = DestinationOptions.objects.get(name=origin_name)
+    print(home)
+    destination_list = []
+    for location in list_of_dest:
+        if location != home:
+            destination_list.append(location)
+
+    print(origin)
+    print(destination_list)
+
+    destination = random.choice(destination_list)
     #random date
     date = random_date() # format = YYYY-MM-DD
     # add number to date
@@ -127,10 +137,11 @@ def create_journey(my_staff):
                                        dateOfJourney= date,
                                        departureTime= time,
                                        arrivalTime= arrival )
+    return my_jouney
 
 if __name__ == "__main__":
-    list_of_locations = Origin0ptions.objects.all()
-    list_of_dest = Destination0ptions.objects.all()
+    list_of_locations = OriginOptions.objects.all()
+    list_of_dest = DestinationOptions.objects.all()
     list_of_schools = School.objects.all()
     list_of_users = User.objects.all()
     list_of_staff = Staff.objects.all()
@@ -142,25 +153,35 @@ if __name__ == "__main__":
     cars = carreader('cars.csv')
     report()
 
+    number_name = len(names)
+    for number in range(number_name):
+        staff_name = names[number]
+        car_info = cars[number]
+        #create a number of users, subset being drivers
+        going_to_drive = random.choice(TorF) # 50/50 is this ok??
+        print(going_to_drive)
+
+        my_staff = create_staff(going_to_drive, staff_name)
+        report()
+
+        if going_to_drive == True:
+            my_car = create_car(my_staff, car_info)
+
+        report()
+
     for driver in list_of_drivers:
         print(driver)
         if len(Car.objects.filter(driver= driver)) == 1:
             journey_counter = random.randrange(0,5)
-            # for numberx in range(journey_counter):
-            create_journey(driver)
-            passanger_counter = random.randrange(0,4)
-            for passanger in passanger_counter:
-                print (passanger_counter)
+            for number_of_j in range(journey_counter):
+                journey = create_journey(driver)
+                journey.on_create()
+                passanger_counter = random.randrange(0,4)
+                allreadybooked = []
+                for passanger in range(passanger_counter):
+                    passanger = random.choice(list_of_staff)
+                    if passanger  not in allreadybooked:
+                        allreadybooked.append(passanger)
+                        journey.book_seat(passanger)
         else:
             print("didnt have car")
-        break
-
-"""
-            allreadybooked = []
-            for numbery in range(passanger_counter):
-                passanger = random.choice(list_of_staff)
-                if passanger in allreadybooked: # while??
-                    passanger = random.choice(list_of_staff)
-                allreadybooked.append(passanger)
-                journey.book_seat(staff)
-"""

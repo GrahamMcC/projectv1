@@ -1,7 +1,6 @@
 {% extends 'car_pool/base.html' %}
 
 {% block content %}
-
     <form method="POST" class="post-form">{% csrf_token %}
         <h1>School</h1>
         {{ form.as_p }}
