@@ -1,0 +1,82 @@
+{% extends 'car_pool/base.html' %}
+
+{% block content %}
+
+    <h1> reports </h1>
+
+    <a href="{% url 'reports' pk=1 %}">my report</a>
+    <a href="{% url 'reports' pk=2 %}">my school reports</a>
+    <a href="{% url 'reports' pk=3 %}">my faculty reports</a>
+    <a href="{% url 'reports' pk=4 %}">University reports</a><br>
+
+    <div class = 'journey' >
+    <h2>Faculty:</h2> <h3>{{ request.user.staff.schoolOfWork.faculty }}</h3><br>
+    </div>
+
+    <table border="1" >
+      <tr>
+        <th>traveled on:</th>
+        <th>driven for:  </th>
+        <th>passenger for: </th>
+
+        <th>total distance traveled</th>
+        <th>distance staff from {{request.user.staff.schoolOfWork}} has driven </th>
+        <th>distance staff from {{request.user.staff.schoolOfWork}} have been a passenger </th>
+
+        <th>cost of these journeys without the system: </th>
+        <th>cost of these journeys with the system: </th>
+        <th> savings </th>
+      </tr>
+            <tr>
+
+              <td>{{ faculty.total_traveled}} journey(s)</td>
+              <td>{{ faculty.driven_for }} journey(s)</td>
+              <td>{{ faculty.passenger_for }} journeys</td>
+
+              <td>{{ faculty.total_distance| floatformat:2 }}m </td>
+              <td>{{ faculty.distance_driven| floatformat:2}}m </td>
+              <td>{{ faculty.distance_passenger| floatformat:2 }}m </td>
+
+              <td>£{{ faculty.total_cost| floatformat:2  }} </td>
+              <td>£{{ faculty.reduced_cost| floatformat:2}} </td>
+              <td>£{{ faculty.saving| floatformat:2 }} </td>
+            </tr>
+    <table>
+      
+<div class= "journey">
+<h2> Reports for schools in the faculty of {{faculty.facultyName}}: </h2>
+</div>
+
+<table border="1" >
+  <tr>
+    <th>school name </th>
+    <th>traveled on:</th>
+    <th>driven for:  </th>
+    <th>passenger for: </th>
+
+    <th>total distance traveled</th>
+    <th>distance staff in school have driven </th>
+    <th>distance staff in school have been a passenger </th>
+
+    <th>cost of these journeys without the system: </th>
+    <th>cost of these journeys with the system: </th>
+    <th> savings </th>
+  </tr>
+        {% for school in school_list %}
+        <tr>
+          <td>{{ school.schoolName }} </td>
+          <td>{{ school.total_traveled}} journey(s)</td>
+          <td>{{ school.driven_for }} journey(s)</td>
+          <td>{{ school.passenger_for }} journeys</td>
+
+          <td>{{ school.total_distance| floatformat:2 }}m </td>
+          <td>{{ school.distance_driven| floatformat:2 }}m </td>
+          <td>{{ school.distance_passenger|floatformat:2}}m </td>
+
+          <td>£{{ school.total_cost| floatformat:2  }} </td>
+          <td>£{{ school.reduced_cost| floatformat:2}} </td>
+          <td>£{{ school.saving| floatformat:2 }} </td>
+        </tr>
+        {% endfor %}
+<table>
+{% endblock %}

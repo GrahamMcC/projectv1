@@ -1,0 +1,63 @@
+{% extends 'car_pool/base.html' %}
+
+{% block content %}
+
+    <h2> Reports </h2>
+
+    <a href="{% url 'reports' pk=1 %}">my report</a>
+    <a href="{% url 'reports' pk=2 %}">my school reports</a>
+    <a href="{% url 'reports' pk=3 %}">my faculty reports</a>
+    <a href="{% url 'reports' pk=4 %}">University reports</a><br>
+
+    <div class = 'journey' >
+    <h3>Name:</h3> <h2>{{request.user}}</h2><br>
+    <h3>School:</h3> <h2>{{ request.user.staff.schoolOfWork }}</h2><br>
+    <h3>Driver:</h3> <h2>{{ request.user.staff.driver }}</h2><br>
+    </div>
+
+    <table border="1" >
+      <tr>
+        <th>traveled on:</th>
+        <th>driven for:  </th>
+        <th>passenger for: </th>
+
+        <th>total distance traveled</th>
+        <th>distance {{request.user}} has driven </th>
+        <th>distance {{request.user}} has been a passenger </th>
+
+        <th>cost of these journeys without the system: </th>
+        <th>cost of these journeys with the system: </th>
+        <th> savings </th>
+      </tr>
+            <tr>
+              <td>{{ staff.total_traveled}} journey(s)</td>
+              <td>{{ staff.driven_for }} journey(s)</td>
+              <td>{{ staff.passenger_for }} journeys</td>
+
+              <td>{{ staff.total_distance }}m </td>
+              <td>{{ staff.distance_driven }}m </td>
+              <td>{{ staff.distance_passenger}}m </td>
+
+              <td>£{{ staff.total_cost| floatformat:2  }} </td>
+              <td>£{{ staff.reduced_cost| floatformat:2}} </td>
+              <td>£{{ staff.saving| floatformat:2 }} </td>
+            </tr>
+    <table>
+
+    <div class= "journey">
+      <h2>List of {{request.user.staff}} journeys</h2>
+      {% if request.user.staff.driver == True %}
+      <h3>List of journeys where {{request.user}} is the driver:</h3></br>
+        {% for journey in user_is_driver %}
+          <a href="{% url 'journey_detail' pk=journey.pk %}">
+          From {{journey.origin}} to {{journey.destination}} on {{journey.dateOfJourney}}</a></br>
+        {% endfor %}
+      {% endif %}
+
+      <h3>List of journeys where {{request.user}} is a passanger: </h3></br>
+      {% for journey in user_is_passenger %}
+        <a href="{% url 'journey_detail' pk=journey.pk %}">
+          From {{journey.origin}} to {{journey.destination}} on {{journey.dateOfJourney}}</a></br>
+      {% endfor %}
+    </div>
+{% endblock %}
