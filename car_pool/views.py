@@ -188,12 +188,16 @@ def admin(request):
 @login_required(login_url='/login/')
 def my_info(request):
 	#get_users_car
-	users_car = Car.objects.filter(driver=request.user.staff)
+	if request.user.staff.driver == True:
+		users_car = Car.objects.filter(driver=request.user.staff)
+		car = users_car[0]
+	else:
+		car = False
 	#get list of journeys where user is driver
 	user_is_driver = user_equals_driver(request.user.staff)
 	#get list of journeys where user is passenger
 	user_is_passenger = user_equals_passenger(request.user.staff)
-	return render(request, 'car_pool/my_info.html', {'car_list': users_car,
+	return render(request, 'car_pool/my_info.html', {'car': car,
 													'user_is_driver': user_is_driver,
 													'user_is_passenger':user_is_passenger})
 
@@ -227,7 +231,6 @@ def school_list(request):
 
 @login_required(login_url='/login/')
 def journey_list(request):
-
 	journey_list = Journey.objects.order_by('dateOfJourney').filter(origin=request.user.staff.homeCampus)
 	my_journey_list = []
 	for journey in journey_list:
@@ -349,10 +352,12 @@ def user_new(request):
 			user = form.save(commit=False)
 			user.save()
 			school = School.objects.all()
+			campus_list = OriginOptions.objects.all()
 			newstaff = Staff.objects.create(user=user, schoolOfWork=school[0],
 			                     driver=False, headOfSchool=False,
 								 head0fFaculty=False,
-								 uniManagement=False)
+								 uniManagement=False,
+								 homeCampus=campus_list[0])
 			return redirect('staff_edit', pk=newstaff.pk)
 	else:
 		form = UserForm()

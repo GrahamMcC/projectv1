@@ -3,7 +3,9 @@
 {% block content %}
     <form method="POST" class="post-form">{% csrf_token %}
         <h1>School</h1>
-        {{ form.as_p }}
+        <h2>Name: </h2> {{form.schoolName}} <br>
+        <h2>Head of school: </h2>  {{form.headOfSchool}} <br>
+        <h2>Faculty: </h2> {{form.faculty}} <br>
         <button type="submit">Save</button>
     </form>
 {% endblock %}

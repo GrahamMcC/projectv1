@@ -7,16 +7,20 @@
     <h2>Driver:</h2> <h3>{{journey.car.driver}} (school of {{journey.car.driver.schoolOfWork}})</h3><br>
     <h2>Car:</h2> <h3>{{ journey.car }}</h3><br>
     <h2>Number of seats:</h2> <h3>{{journey.available_seats}}</h3><br>
-    <h2>Staring:</h2> <h3>{{ journey.origin }}</h3><br>
-    <h2>Traveling to:</h2> <h3>{{ journey.destination }}</h3><br>
+    <h2>Starting:</h2> <h3>{{ journey.origin }}</h3><br>
+    <h2>Travelling to:</h2> <h3>{{ journey.destination }}</h3><br>
     <h2>Date:</h2> <h3>{{ journey.dateOfJourney }}</h3><br>
     <h2>Departing at:</h2> <h3>{{ journey.departureTime }}</h3><br>
     <h2>Estimated arrival time:</h2> <h3>{{ journey.arrivalTime }}</h3><br>
-    <h2>distance:</h2> <h3>{{ journey.distance }}m</h3><br>
-    <h2>cost per passenger:</h2> <h3>£{{ journey.cost_per_person|floatformat:2 }}</h3><br>
-    <h2>total cost:</h2><h3>£{{ journey.total_cost|floatformat:2 }}</h3><br>
+    <h2>Distance:</h2> <h3>{{ journey.distance }}m</h3><br>
+    <h2>Cost per passenger:</h2> <h3>£{{ journey.cost_per_person|floatformat:2 }}</h3><br>
+    <h2>Total cost:</h2> <h3>£{{ journey.total_cost|floatformat:2 }}</h3><br>
 
-    <h1>{{passenger_list}}</h1>
+    <h2>The list of passangers for this journey is:</h2><br>
+
+    {%for passenger in passenger_list%}
+    <h3>{{passenger}}</h3><br>
+    {% endfor %}
 
     {% if request.user.staff in staffids%}
       <h3>You have already booked a seat for this journey</h3>

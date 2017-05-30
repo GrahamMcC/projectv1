@@ -9,6 +9,7 @@ class Staff(models.Model):
     headOfSchool = models.BooleanField()
     head0fFaculty = models.BooleanField()
     uniManagement = models.BooleanField()
+    admin = models.BooleanField(default=False)
     homeCampus = models.ForeignKey('OriginOptions')
 
 

@@ -12,7 +12,7 @@
         .top{
           position: fixed;
           top: 0;
-          height: 20%;
+          height: 25%;
           width:100%;
           float: center;
           background-color: #00004C;
@@ -21,15 +21,16 @@
 
 
         .top h1 a{
-          padding-left: 8%;
+          padding-left: 25%;
+          padding-Top: 30%;
           color: white;
         }
 
 
         ul.topnav {
           list-style-type: none;
-          margin: 0;
-          padding: 0;
+          margin-left: 20%;
+          padding-top: 0.5%;
           overflow: hidden;
           background-color: #00004C;
         }
@@ -72,7 +73,7 @@
         ul.nav li.right {float: right;}
 
         .content{
-          padding-top: 10%;
+          padding-top: 0%;
           padding-bottom: 120%;
         }
 
@@ -89,7 +90,6 @@
 
         .bottom{
           border-style: solid;
-          border-color: red;
           position: fixed;
           bottom: -100;
           height: 5%;
@@ -100,7 +100,7 @@
         }
 
         .content{
-          padding-top: 12%;
+          padding-top: 15%;
         }
 
         .content .journey {
@@ -138,8 +138,33 @@
           text-decoration: underline;
         }
 
+        .content .links a{
+          padding: 3px;
+
+        }
+
+        .icon_bar img{
+          height: 30px;
+          width: 30px;
+          padding-left: 10px;
+        }
+
+        .icon_bar{
+          position: fixed;
+          top: 140px;
+          right: 40px;
+
+        }
+
+        #user {
+          position: fixed;
+          top: 95px;
+          right: 25px;
+          color: white;
+        }
+
         #image {
-          position: absolute;
+          position: fixed;
           top: 5px;
           right: 25px;
           height: 17%;
@@ -184,20 +209,62 @@
     <body class = "body"/>
 
       <div class = "Top">
-        <h1><a href="{% url 'journey_list' %}">Car Pool Management System</a></h1>
+        <h1><a href="{% url 'journey_list' %}">Carpool Management System</a></h1>
           <ul class = "topnav">
             {% if request.user.staff.driver == True %}
               <li><a href="{% url 'journey_new' %}">New Journey</a></li>
             {% endif %}
             <li><a href="{% url 'journey_list'%}">Journey List</a></li>
             <li><a href="{% url 'reports' pk=1 %}">Reports</a></li>
+
+            {% if request.user.staff.admin == True %}
             <li><a href="{% url 'internal_admin' %}">Admin</a></li>
+            {% endif %}
             <li><a href="{% url 'my_info' %}">My info </a></li>
             <li><a href="{% url 'logout' %}">logout </a></li>
           </ul>
         </div> <!-- end of Top div -->
         {% load static %}
-        <img id='image' src="{% static "car_pool/logo.png" %}" alt="My image"/>
+        <h3 id='user'>Current user: {{request.user.staff}}</h3></br>
+        <img id='image' src="{% static "car_pool/logo.png" %}" alt="My image" title="logo"/>
+
+
+        <div class = "icon_bar">
+
+        {% if request.user.staff.driver == True %}
+          <img src="{% static "car_pool/driver_gold.png" %}" title="driver = false"/>
+        {% else %}
+          <img src="{% static "car_pool/driver_dark.png" %}" title="driver = true"/>
+        {% endif %}
+
+        {% if request.user.staff.headOfSchool == True %}
+          <img src="{% static "car_pool/school_gold.png" %}" title="driver = false"/>
+        {% else %}
+          <img src="{% static "car_pool/school_dark.png" %}" title="driver = true"/>
+        {% endif %}
+
+        {% if request.user.staff.head0fFaculty == True %}
+          <img src="{% static "car_pool/faculty_gold.png" %}" title="driver = false"/>
+        {% else %}
+          <img src="{% static "car_pool/faculty_dark.png" %}" title="driver = true"/>
+        {% endif %}
+
+        {% if request.user.staff.uniManagement == True %}
+          <img src="{% static "car_pool/uni_management_gold.png" %}" title="driver = false"/>
+        {% else %}
+          <img src="{% static "car_pool/uni_management_dark.png" %}" title="driver = true"/>
+        {% endif %}
+
+        {% if request.user.staff.admin == True %}
+          <img src="{% static "car_pool/admin_gold.png" %}" title="driver = false"/>
+        {% else %}
+          <img src="{% static "car_pool/admin_dark.png" %}" title="driver = true"/>
+        {% endif %}
+
+
+
+
+        </div>
 
 
 
@@ -206,7 +273,6 @@
         </div> <!-- end of left div -->
 
         <div class = "content">
-            <h3> current user: {{request.user.staff}}</h3>
             {% block content %}
 
             {% endblock %}

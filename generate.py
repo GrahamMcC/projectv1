@@ -130,7 +130,7 @@ def create_journey(my_staff):
     #calcualte arraival time
     arrival = time
     car_list = Car.objects.filter(driver= my_staff)
-    my_jouney = Journey.objects.create(reason= "procedurally generated reason",
+    my_jouney = Journey.objects.create(reason= "Procedurally generated reason",
                                        car= car_list[0],
                                        origin= origin ,
                                        destination= destination ,

@@ -3,9 +3,17 @@
 {% block content %}
 
 <form method="POST" class="post-form">{% csrf_token %}
+<div class = "journey">
     <h1 id="pageHeader"> {{title}} Journey</h1>
-    {{ form.as_p}}
+    <h2>Reason:</h2> {{form.reason}}<br>
+    <h2>Car:</h2> {{form.car}}<br>
+    <h2>Origin:</h2> {{form.origin}}<br>
+    <h2>Destination:</h2> {{form.destination}}<br>
+    <h2>Date of Journey:</h2> {{form.dateOfJourney}}<br>
+    <h2>Departure Time:</h2> {{form.departureTime}}<br>
+    <h2>Arrival Time:</h2> {{form.arrivalTime}}<br>
     <button type="submit">Create Journey</button>
+<div>
 </form>
 
 {% endblock %}

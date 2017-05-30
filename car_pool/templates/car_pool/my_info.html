@@ -8,15 +8,13 @@
 
 
     {% if request.user.staff.driver == True %}
-      {% for car in car_list %}
-       {% if car.driver == request.user.staff %}
+  
        <h1>My car:</h1>
        <h2>Model:</h2> <h3>{{car.model}}</h3><br>
        <h2>Colour:</h2> <h3>{{ car.colour }}</h3><br>
-       <h2>reg number:</h2> <h3>{{car.regNum}}</h3><br>
+       <h2>Reg number:</h2> <h3>{{car.regNum}}</h3><br>
         <a href="{% url 'car_edit' pk=car.pk %}"> Edit Car Details</a>
-       {% endif %}
-      {% endfor %}
+
     {% endif %}
 
 
@@ -29,7 +27,7 @@
       {% endfor %}
     {% endif %}
 
-    <h2>List of journeys where {{request.user}} is a passanger: </h2></br>
+    <h2>List of journeys where {{request.user}} is a passenger: </h2></br>
     {% for journey in user_is_passenger %}
       <a href="{% url 'journey_detail' pk=journey.pk %}">
         From {{journey.origin}} to {{journey.destination}} on {{journey.dateOfJourney}}</a></br>

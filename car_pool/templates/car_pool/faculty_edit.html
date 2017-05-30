@@ -1,9 +1,12 @@
 {% extends 'car_pool/base.html' %}
 
 {% block content %}
+<div class = "journey">
     <form method="POST" class="post-form">{% csrf_token %}
         <h1>New Faculty</h1>
-        {{ form.as_p }}
+        <h2>Name: </h2> {{form.facultyName}} <br>
+        <h2>Head of Faculty: </h2>  {{form.headOfFaculty}} <br>
         <button type="submit">Save</button>
     </form>
+</div>
 {% endblock %}

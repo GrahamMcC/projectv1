@@ -2,33 +2,39 @@
 
 {% block content %}
 
-    <h2> reports </h2>
-
-    <a href="{% url 'reports' pk=1 %}">my report</a>
-    <a href="{% url 'reports' pk=2 %}">my school reports</a>
-    <a href="{% url 'reports' pk=3 %}">my faculty reports</a>
+    <h1> Reports </h1>
+    <div class='links'>
+    <h3>View reports for: </h3><br>
+    <a href="{% url 'reports' pk=1 %}">My report</a>
+    {% if request.user.staff.headOfSchool == True %}
+    <a href="{% url 'reports' pk=2 %}">My school reports</a>
+    {% endif %}
+    {% if request.user.staff.head0fFaculty == True %}
+    <a href="{% url 'reports' pk=3 %}">My faculty reports</a>
+    {% endif %}
+    {% if request.user.staff.uniManagement == True %}
     <a href="{% url 'reports' pk=4 %}">University reports</a><br>
+    {% endif %}
+    </div>
 
     <div class = 'journey' >
       <h2> Report for the entire university:</h2>
     </div>
-
     <table border="1" >
       <tr>
-        <th>traveled on:</th>
-        <th>driven for:  </th>
-        <th>passenger for: </th>
+        <th>Travelled on:</th>
+        <th>Driven for:  </th>
+        <th>Passenger for: </th>
 
-        <th>total distance traveled</th>
-        <th>distance all staff have driven </th>
-        <th>distance all staff have been a passenger </th>
+        <th>Total distance travelled:</th>
+        <th>Distance all staff have driven: </th>
+        <th>Distance all staff have been a passenger: </th>
 
-        <th>cost of these journeys without the system: </th>
-        <th>cost of these journeys with the system: </th>
-        <th> savings </th>
+        <th>Cost of these journeys without the system: </th>
+        <th>Cost of these journeys with the system: </th>
+        <th>Savings: </th>
       </tr>
             <tr>
-
               <td>{{ uni.total_traveled}} journey(s)</td>
               <td>{{ uni.driven_for }} journey(s)</td>
               <td>{{ uni.passenger_for }} journeys</td>
@@ -48,18 +54,18 @@
 </div>
 <table border="1" >
   <tr>
-    <th>faculty name </th>
-    <th>traveled on:</th>
-    <th>driven for:  </th>
-    <th>passenger for: </th>
+    <th>Faculty name: </th>
+    <th>Travelled on:</th>
+    <th>Driven for:  </th>
+    <th>Passenger for: </th>
 
-    <th>total distance traveled</th>
-    <th>distance staff in faculty have driven </th>
-    <th>distance staff in faculty have been a passenger </th>
+    <th>Total distance travelled:</th>
+    <th>Distance staff in faculty have driven: </th>
+    <th>Distance staff in faculty have been a passenger: </th>
 
-    <th>cost of these journeys without the system: </th>
-    <th>cost of these journeys with the system: </th>
-    <th> savings </th>
+    <th>Cost of these journeys without the system: </th>
+    <th>Cost of these journeys with the system: </th>
+    <th>Savings: </th>
   </tr>
         {% for faculty in faculty_list %}
         <tr>
