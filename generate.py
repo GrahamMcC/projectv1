@@ -148,6 +148,8 @@ if __name__ == "__main__":
     list_of_drivers = Staff.objects.filter(driver=True)
     list_of_cars = Car.objects.all()
     TorF = [True, True, False]
+
+    """
     names = namereader('names.csv')
 
     cars = carreader('cars.csv')
@@ -168,11 +170,14 @@ if __name__ == "__main__":
             my_car = create_car(my_staff, car_info)
 
         report()
-
+    """
     for driver in list_of_drivers:
         print(driver)
         if len(Car.objects.filter(driver= driver)) == 1:
-            journey_counter = random.randrange(0,5)
+            if driver.homeCampus.name == "Jordanstown" or driver.homeCampus.name == "Coleraine" or driver.homeCampus.name == "Magee":
+                journey_counter = random.randrange(1,5)
+            else:
+                journey_counter = random.randrange(1,2)
             for number_of_j in range(journey_counter):
                 journey = create_journey(driver)
                 journey.on_create()
@@ -184,4 +189,4 @@ if __name__ == "__main__":
                         allreadybooked.append(passanger)
                         journey.book_seat(passanger)
         else:
-            print("didnt have car")
+            print(" ")

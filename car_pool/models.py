@@ -107,6 +107,8 @@ class Journey(models.Model):
         if self.distance == 0:
             self.get_distance()
         self.total_cost = self.distance * 0.45
+        if seats_booked == 0:
+            seats_booked = 1
         self.cost_per_person = self.total_cost / seats_booked
         self.save()
 

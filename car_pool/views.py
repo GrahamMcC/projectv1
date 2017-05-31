@@ -3,6 +3,7 @@ from .models import *
 from .forms import *
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from datetime import datetime
 
 #functions to get a sub set of journeys
 
@@ -190,7 +191,12 @@ def my_info(request):
 	#get_users_car
 	if request.user.staff.driver == True:
 		users_car = Car.objects.filter(driver=request.user.staff)
-		car = users_car[0]
+		try:
+			car = users_car[0]
+		except:
+			TempCar = Car.objects.filter(id=666)
+			car = TempCar[0]
+
 	else:
 		car = False
 	#get list of journeys where user is driver
@@ -237,7 +243,6 @@ def journey_list(request):
 		if journey.available_seats > 0:
 			journey.passenger_list = get_passenger_list(journey)
 			my_journey_list.append(journey)
-
 	return render(request, 'car_pool/journey_list.html',
 							{'journey_list': my_journey_list })
 
@@ -275,7 +280,6 @@ def journey_detail(request, pk):
 	return render(request, 'car_pool/journey_detail.html', {'journey': journey,
 															'staffids': staffids,
 															'passenger_list': passanger_list})
-
 
 # funtions to add a new instace
 @login_required(login_url='/login/')
@@ -320,6 +324,14 @@ def journey_booked(request, pk):
 	journey.book_seat(request.user.staff)
 	return render(request, 'car_pool/journey_booked.html', {'journey': journey})
 
+
+def journey_cancel(request, pk):
+	journey = get_object_or_404(Journey, pk=pk)
+	staffJourney_list = StaffJourney.objects.filter(journeyId=journey)
+	for item in staffJourney_list:
+		if item.staffId == request.user.staff:
+			item.delete()
+	return render(request, 'car_pool/journey_cancel.html', {'journey': journey})
 
 #needds changed from faculty to journey
 @login_required(login_url='/login/')
@@ -388,7 +400,7 @@ def car_edit(request, pk):
 			return redirect(my_info)
 	else:
 		form = CarForm(instance=post)
-	return render(request, 'car_pool/school_edit.html', {'form': form})
+	return render(request, 'car_pool/car_edit.html', {'form': form})
 
 @login_required(login_url='/login/')
 def school_edit(request, pk):

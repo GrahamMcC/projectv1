@@ -8,13 +8,11 @@
 
 
     {% if request.user.staff.driver == True %}
-  
        <h1>My car:</h1>
        <h2>Model:</h2> <h3>{{car.model}}</h3><br>
        <h2>Colour:</h2> <h3>{{ car.colour }}</h3><br>
        <h2>Reg number:</h2> <h3>{{car.regNum}}</h3><br>
-        <a href="{% url 'car_edit' pk=car.pk %}"> Edit Car Details</a>
-
+      <a href="{% url 'car_edit' pk=car.pk %}"> Edit Car Details</a>
     {% endif %}
 
 

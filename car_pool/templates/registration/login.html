@@ -5,14 +5,14 @@
         <style>
         * {
           font-family: 'Helvetica';
-          background-color: #00004C;
+          background-color: white;
           color: #B6A461;
 
         }
 
         .top{
           position: fixed;
-          top: 0;
+          top: 30%;
           height: 20%;
           width:100%;
           float: center;
@@ -73,7 +73,7 @@
         ul.nav li.right {float: right;}
 
         .content{
-          padding-top: 0%;
+          padding-top: 30%;
           padding-bottom: 120%;
         }
 
@@ -100,7 +100,7 @@
         }
 
         .content{
-          padding-top: 12%;
+          padding-top: 30%;
         }
 
         .content .journey {
@@ -146,7 +146,7 @@
         .login{
           padding-left: 40%;
           padding-right: 40%;
-          padding-top: 4%;
+          padding-top: 15%;
         }
 
         .login h1, h2, h3, h4, h5 {
@@ -154,12 +154,12 @@
         }
 
         input[type=text] {
-          background-color: grey;
+          background-color: white;
           color: black;
         }
 
         input[type=password] {
-          background-color: grey;
+          background-color: white;
           color: black;
         }
         input[type=button] {
@@ -183,10 +183,14 @@
 
         #image {
           position: fixed;
-          top: 9%;
-          right: 60%;
+          top: 5%;
+          right: 47%;
           height: 20%;
           width: 15%
+        }
+
+        #forgot_password{
+          color: grey;
         }
 
         @media screen and (max-width: 600px){
@@ -214,8 +218,8 @@
       <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button id="submit" type="submit">Login</button>
-        <a href="{% url 'password_reset' %}">password_reset</a>
+        <button id="submit" type="submit">Login</button><br>
+        <a id="forgot_password" href="{% url 'password_reset' %}">Password Reset</a>
       </form>
     </div
 

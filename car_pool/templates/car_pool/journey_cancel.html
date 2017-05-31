@@ -1,7 +1,7 @@
 {% extends 'car_pool/base.html' %}
 
 {% block content %}
-  <h1>You are booked on the following journey:</h1>
+  <h1>You have cancelled your booking on the following journey:</h1>
   <h1><a href="{% url 'journey_detail' pk=journey.pk %}">
     From {{journey.origin}} to {{journey.destination}}</a></h1>
     <h2>Reason:</h2> <h3>{{journey.reason}}</h3><br>
@@ -13,5 +13,5 @@
     <h2>Departing at:</h2> <h3>{{ journey.departureTime }}</h3><br>
     <h2>Estimated arrival time:</h2> <h3>{{ journey.arrivalTime }}</h3><br>
 
-    
+
 {% endblock %}

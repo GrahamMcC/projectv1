@@ -24,6 +24,7 @@
 
     {% if request.user.staff in staffids%}
       <h3>You have already booked a seat for this journey</h3>
+      <a href="{% url 'journey_cancel' pk=journey.pk %}" class= "btn btn-info" role="button" >Cancel booking</a>
     {% elif request.user.staff == journey.car.driver %}
       <a href="{% url 'journey_edit' pk=journey.pk %}" class= "btn btn-info" role="button" >edit journey</a>
     {% else %}

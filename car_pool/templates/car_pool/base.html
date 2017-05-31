@@ -21,15 +21,15 @@
 
 
         .top h1 a{
-          padding-left: 25%;
+          padding-left: 15%;
           padding-Top: 30%;
-          color: white;
+          color: #B6A461;
         }
 
 
         ul.topnav {
           list-style-type: none;
-          margin-left: 20%;
+          margin-left: 10%;
           padding-top: 0.5%;
           overflow: hidden;
           background-color: #00004C;
@@ -63,8 +63,8 @@
           text-decoration: none;
         }
 
-        ul.topnav li a:hover:not(.active) {background-color: #111;}
-        ul.nav li a:hover:not(.active) {background-color: #111;}
+        ul.topnav li a:hover:not(.active) {background-color: #B6A461;}
+        ul.nav li a:hover:not(.active) {background-color: #B6A461;}
 
         ul.topnav li a.active {background-color: #4CAF50;}
         ul.nav li a.active {background-color: #4CAF50;}
@@ -121,12 +121,13 @@
           border: 1px solid black;
           text-align: left;
           vertical-align: top;
-          color: white;
+          color: #B6A461;
 
         }
 
         th {
           width: 3%
+
         }
 
         .content a {
@@ -147,6 +148,7 @@
           height: 30px;
           width: 30px;
           padding-left: 10px;
+          padding-top: 5px;
         }
 
         .icon_bar{
@@ -159,25 +161,29 @@
         #user {
           position: fixed;
           top: 95px;
-          right: 25px;
+          right: 50px;
           color: white;
         }
 
         #image {
           position: fixed;
           top: 5px;
-          right: 25px;
+          right: 50px;
           height: 17%;
           width: 12%
         }
 
-        @media screen and (max-width: 600px){
+        @media screen and (max-width: 750px){
           ul.topnav li.right,
           ul.topnav li {float: none;}
-          .content {padding-top: 50%;}
-          .top {position: static; }
+          ul.topnav {margin-left: 0%;}
+          .content {padding-top: 20%;}
+          .top {position: static; margin-left : 0%}
           .bottom {bottom: 0;}
           #image {display: none}
+          #user {display: none}
+          .icon_bar{display: none}
+
         }
 
         </style>
